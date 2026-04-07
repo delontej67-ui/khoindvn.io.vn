@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vu Van Khoi - Khoindvn | ESign &amp; KSign iOS</title>
+<link rel="icon" type="image/png" href="https://khoindvn.io.vn/img/pf/ksign.png"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"SF Pro Display","SF Pro Text",BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+:root{--accent:#6366f1;--accent-light:#818cf8;--accent2:#a855f7;--blue:#0a84ff;--green:#34c759;--bg:#f5f5f7;--bg2:#ffffff;--bg3:#f0f0f5;--label:#1c1c1e;--label2:rgba(60,60,67,.52);--label3:rgba(60,60,67,.26);--sep:rgba(60,60,67,.1);--sh-s:0 1px 8px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.06);--sh-m:0 4px 20px rgba(0,0,0,.09),0 8px 32px rgba(0,0,0,.07);--r-xl:22px;--r-l:16px;--r-m:11px;--r-pill:999px;--hero-bg:#09090f}
+[data-theme="dark"]{--bg:#0e0e12;--bg2:#1c1c22;--bg3:#26262e;--label:#f0f0f5;--label2:rgba(220,220,230,.5);--label3:rgba(220,220,230,.22);--sep:rgba(255,255,255,.08);--sh-s:0 1px 8px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);--sh-m:0 4px 20px rgba(0,0,0,.4),0 8px 32px rgba(0,0,0,.3)}
+[data-theme="dark"] body{background:var(--bg);color:var(--label)}
+[data-theme="dark"] .links-card,[data-theme="dark"] .skills-card{background:var(--bg2)}
+[data-theme="dark"] .app-row{background:var(--bg2);box-shadow:var(--sh-s)}
+[data-theme="dark"] .link-label,[data-theme="dark"] .app-title,[data-theme="dark"] .skill-name,[data-theme="dark"] .skills-card h2{color:var(--label)}
+[data-theme="dark"] .app-sub{color:var(--label2)}
+[data-theme="dark"] .link-row:hover{background:rgba(255,255,255,.04)}
+[data-theme="dark"] .section-label,[data-theme="dark"] .app-section-label{color:var(--label2)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--label);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:rgba(120,120,128,.2);border-radius:999px}
+header{position:sticky;top:0;z-index:999}
+.navbar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 1.1rem;background:rgba(9,9,15,.78);backdrop-filter:saturate(200%) blur(28px);-webkit-backdrop-filter:saturate(200%) blur(28px);border-bottom:.5px solid rgba(255,255,255,.06)}
+.nav-logo{font-size:.95rem;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-.03em;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;align-items:center;list-style:none;gap:.1rem;padding:0}
+.nav-links li a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;font-weight:500;padding:.3rem .55rem;border-radius:var(--r-m);transition:background .15s,color .15s;display:block;white-space:nowrap}
+.nav-links li a:hover{background:rgba(255,255,255,.09);color:#fff}
+.color-mode{width:34px;height:34px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.13);border-radius:50%;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s,transform .22s;color:rgba(255,255,255,.85)}
+.color-mode:hover{background:rgba(255,255,255,.15);transform:rotate(22deg)}
+.color-mode svg{width:17px;height:17px;display:block}
+.hero{position:relative;overflow:hidden;background:var(--hero-bg);padding:3.5rem 1.25rem 3.25rem;display:flex;justify-content:center}
+.hero::before{content:'';position:absolute;border-radius:50%;pointer-events:none;width:420px;height:420px;background:radial-gradient(circle,rgba(99,102,241,.55) 0%,transparent 65%);filter:blur(72px);top:-140px;left:-100px}
+.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none;width:360px;height:360px;background:radial-gradient(circle,rgba(168,85,247,.45) 0%,transparent 65%);filter:blur(72px);bottom:-120px;right:-80px}
+.hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9rem;max-width:480px;width:100%}
+.hero-avatar{width:82px;height:82px;border-radius:50%;border:2.5px solid rgba(255,255,255,.14);box-shadow:0 0 0 7px rgba(99,102,241,.16),0 16px 40px rgba(0,0,0,.5);animation:glowPulse 3s infinite ease-in-out}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 7px rgba(99,102,241,.16),0 16px 40px rgba(0,0,0,.5)}50%{box-shadow:0 0 0 12px rgba(99,102,241,.25),0 16px 45px rgba(99,102,241,.3)}}
+.hero-name{font-size:1.9rem;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1.1;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;justify-content:center}
+.hero-name img{height:22px;width:22px;vertical-align:middle}
+.hero-typing{font-size:1.05rem;font-weight:600;min-height:2em;line-height:1.6;color:rgba(255,255,255,.45)}
+#typed-text{background:linear-gradient(135deg,#818cf8 0%,#c084fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cursor{color:#c084fc;-webkit-text-fill-color:#c084fc;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-desc{font-size:.91rem;color:rgba(255,255,255,.52);line-height:1.75;max-width:320px}
+.hero-desc strong{color:rgba(255,255,255,.9);font-weight:700}
+.hero-desc a{color:#7dd3fc;text-decoration:none;border-bottom:1px solid rgba(125,211,252,.3);transition:color .15s,border-color .15s}
+.hero-desc a:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.social-buttons{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.1rem}
+.social-btn{width:38px;height:38px;border-radius:10px;border:none;cursor:pointer;padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;background:none}
+.social-btn:hover{transform:scale(1.1);opacity:.9}
+.social-btn svg{width:38px;height:38px;display:block}
+.section-label,.app-section-label{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--label2);padding:1.5rem 1.25rem .5rem;max-width:680px;margin:0 auto;display:block}
+.links-section{padding:0 1.25rem .75rem;max-width:680px;margin:0 auto}
+.links-card{background:var(--bg2);border-radius:var(--r-xl);box-shadow:var(--sh-s);overflow:hidden}
+.link-row{display:flex;align-items:center;gap:.85rem;padding:.82rem 1rem;text-decoration:none;color:var(--label);position:relative;transition:background .13s;-webkit-tap-highlight-color:transparent;width:100%;box-sizing:border-box}
+.link-row:hover{background:rgba(99,102,241,.04)}
+.link-row+.link-row::before{content:'';position:absolute;top:0;left:3.7rem;right:0;height:.5px;background:var(--sep)}
+.link-icon-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.link-icon-wrap svg,.link-icon-wrap img{width:22px!important;height:22px!important;object-fit:contain;display:inline-block}
+.link-label{flex:1;font-size:.91rem;font-weight:600;color:var(--label)}
+.link-open-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--accent);color:#fff;border-radius:9px;flex-shrink:0;transition:background .15s,transform .15s;box-shadow:0 2px 8px rgba(99,102,241,.35)}
+.link-row:hover .link-open-btn{background:#4f52d4;transform:scale(1.07)}
+.link-open-btn.dl{background:#34c759;box-shadow:0 2px 8px rgba(52,199,89,.35)}
+.link-row:hover .link-open-btn.dl{background:#28a745}
+.skills-section{padding:0 1.25rem 1.75rem;max-width:680px;margin:0 auto}
+.skills-card{background:var(--bg2);border-radius:var(--r-xl);box-shadow:var(--sh-s);padding:1.15rem 1.15rem 1rem}
+.skills-card h2{font-size:.88rem;font-weight:700;margin-bottom:1rem;letter-spacing:-.01em;color:var(--label)}
+.skill-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.85rem}
+.skill-row:last-child{margin-bottom:0}
+.skill-name{font-size:.8rem;font-weight:600;color:var(--label);width:68px;flex-shrink:0}
+.skill-track{flex:1;height:6px;background:var(--bg3);border-radius:var(--r-pill);overflow:hidden;position:relative}
+.skill-fill{height:100%;width:0;border-radius:999px;transition:width 1.5s cubic-bezier(0.22,1,0.36,1)}
+.seg-wrap{padding:0 1.25rem .75rem;max-width:680px;margin:0 auto}
+.seg-track{display:flex;position:relative;background:var(--bg3);border-radius:var(--r-pill);padding:3px;width:fit-content}
+.seg-thumb{position:absolute;top:3px;bottom:3px;width:calc(50% - 3px);background:var(--bg2);border-radius:var(--r-pill);box-shadow:var(--sh-s);transition:transform .22s cubic-bezier(0.34,1.56,0.64,1);left:3px}
+.seg-btn{position:relative;z-index:1;background:none;border:none;cursor:pointer;font-size:.82rem;font-weight:600;padding:.35rem 1.2rem;border-radius:var(--r-pill);color:var(--label2);transition:color .18s;min-width:80px}
+.seg-btn.active{color:var(--label)}
+.tab-panel{animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.apps-wrap{padding:0 1.25rem .75rem;max-width:680px;margin:0 auto}
+.app-section,.esign-section,.ksign-section{display:flex;flex-direction:column;gap:.55rem}
+.app-row{display:flex;align-items:center;gap:.85rem;background:var(--bg2);border-radius:var(--r-l);box-shadow:var(--sh-s);padding:.7rem .85rem;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.app-icon{width:46px;height:46px;border-radius:11px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.app-info,.app-text{flex:1;min-width:0}
+.app-title{font-size:.88rem;font-weight:700;color:var(--label);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-sub{font-size:.75rem;color:var(--label2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-dl-btn,.app-action{display:inline-flex;align-items:center;justify-content:center;padding:.3rem .75rem;font-size:.78rem;font-weight:700;background:var(--accent);color:#fff;border-radius:var(--r-pill);flex-shrink:0;transition:background .15s,transform .15s;box-shadow:0 2px 8px rgba(99,102,241,.3)}
+.app-row:hover .app-dl-btn,.app-row:hover .app-action{background:#4f52d4;transform:scale(1.04)}
+.site-footer{text-align:center;padding:1.5rem 1rem 3rem;color:var(--label2);font-size:.75rem}
+.site-footer a{color:var(--label2);text-decoration:none}
+.site-footer a:hover{color:var(--label)}
+main{position:relative!important;z-index:1!important}
+footer{position:relative!important;z-index:1!important}
+body{overflow-x:hidden!important}
+@media(max-width:639px){
+  .nav-links{flex-direction:column;align-items:flex-start;position:absolute;top:52px;left:0;right:0;background:rgba(9,9,15,.95);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);padding:.4rem .75rem .75rem;gap:0;opacity:0;pointer-events:none;transition:opacity .2s;border-bottom:.5px solid rgba(255,255,255,.07)}
+  .nav-links.show{opacity:1;pointer-events:auto}
+  .nav-links li a{font-size:.92rem;padding:.58rem .4rem;color:rgba(255,255,255,.75)}
+  .hero{padding:2.75rem 1rem 2.5rem}
+  .hero-name{font-size:1.65rem}
+  .link-row{flex-wrap:nowrap}
+  .link-label{font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+@media(min-width:640px){
+  .navbar{padding:0 2rem}
+  .hero{padding:4.5rem 2rem 4rem}
+  .hero-avatar{width:96px;height:96px}
+  .hero-name{font-size:2.15rem}
+  .section-label,.app-section-label,.links-section,.skills-section{padding-left:2rem;padding-right:2rem}
+}
+@media(min-width:1024px){
+  .navbar{padding:0 3rem}
+  .hero-name{font-size:2.6rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="navbar">
+    <a href="#about" class="nav-logo">khoindvn</a>
+    <button id="colorMode" class="color-mode" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">Trang chu</a></li>
+      <li><a href="#links">Dich vu</a></li>
+      <li><a href="#signed">Signed App</a></li>
+      <li><a href="#bypass">ESign / KSign</a></li>
+      <li><a href="#skills">Ky nang</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <section class="hero" id="about">
+    <div class="hero-inner">
+      <img class="hero-avatar" src="https://khoindvn.io.vn/img/pf/favicon.ico" alt="Avatar" loading="eager" decoding="async"/>
+      <h1 class="hero-name" id="hero-name">
+        Vu Van Khoi
+        <img src="https://khoindvn.io.vn/img/icons/badge.png" alt="verified" loading="lazy" style="height:24px;width:24px;vertical-align:middle;flex-shrink:0;"/>
+      </h1>
+      <p class="hero-typing"><span id="typed-text"></span><span class="cursor">|</span></p>
+      <p class="hero-desc">
+        Mua chung chi <strong>ESign / KSign</strong> cai app 100% thanh cong chi <strong>50k</strong> -
+        <a href="https://muacert.com" target="_blank" rel="noopener">muacert.com</a>
+      </p>
+      <div class="social-buttons"></div>
+    </div>
+  </section>
+
+  <span class="section-label" id="links">Dich vu &amp; Lien ket</span>
+  <div class="links-section">
+    <div class="links-card">
+      <a class="link-row" href="https://cert.khoindvn.io.vn" target="_blank" rel="noopener">
+        <span class="link-icon-wrap" style="background:#fff3e0;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="#f57c00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6" stroke="#f57c00" stroke-width="1.8"/><path d="M16 10a4 4 0 01-8 0" stroke="#f57c00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="link-label">Website Ban Chung Chi - 50k</span>
+        <span class="link-open-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </a>
+      <a class="link-row" href="https://t.me/+7bbn-Bk1RCk2NTQ9" target="_blank" rel="noopener">
+        <span class="link-icon-wrap" style="background:#e3f2fd;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21.8 2.2L1.4 10c-1.3.5-1.3 1.3-.2 1.6l5.2 1.6 1.9 5.9c.3.8.4 1 1 1 .5 0 .7-.2 1-.6l2.5-2.4 5.2 3.8c1 .5 1.7.3 1.9-.9l3.4-16c.4-1.5-.5-2.2-1.5-1.8z" fill="#2196f3"/><path d="M8.8 13.4l.4 4.6 2.3-2.2-2.7-2.4z" fill="#1565c0"/></svg>
+        </span>
+        <span class="link-label">Telegram Notification Channel</span>
+        <span class="link-open-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </a>
+      <a class="link-row" href="https://t.me/freemapios" target="_blank" rel="noopener">
+        <span class="link-icon-wrap" style="background:#e8f5e9;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#43a047" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="link-label">Box Chat Hack Map Mod LQMB</span>
+        <span class="link-open-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </a>
+      <a class="link-row" href="https://discord.gg/cQjuP9TEp3" target="_blank" rel="noopener">
+        <span class="link-icon-wrap" style="background:#ede7f6;">
+          <svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.7 19.7 0 0015.3 3c-.2.4-.5.9-.7 1.3a18.3 18.3 0 00-5.3 0A13.2 13.2 0 008.7 3a19.7 19.7 0 00-5 1.4C1.4 9 .8 13.4 1 17.8a19.9 19.9 0 006 3 14.9 14.9 0 001.3-2.1 12.9 12.9 0 01-2-.9l.5-.4a14.2 14.2 0 0012.3 0l.5.4a12.9 12.9 0 01-2 1 14.9 14.9 0 001.3 2c2.1-.6 4.1-1.6 6-3 .3-4.9-.8-9.3-3.6-13.4zM8.5 15.2c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3zm7 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3z" fill="#7c4dff"/></svg>
+        </span>
+        <span class="link-label">Join Discord Server</span>
+        <span class="link-open-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </a>
+      <a class="link-row" href="https://github.com/dns-khoindvn/top-country-stats/releases/download/DNS/khoindvn.io.vn.mobileconfig">
+        <span class="link-icon-wrap" style="background:#e0f7fa;">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0097a7" stroke-width="1.8"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" stroke="#0097a7" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+        <span class="link-label">Download DNS Profile</span>
+        <span class="link-open-btn dl"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+      </a>
+      <a class="link-row" href="https://khoindvn.io.vn/iPA/esign.ipa" target="_blank" rel="noopener">
+        <span class="link-icon-wrap" style="background:#fce4ec;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke="#e91e63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10" stroke="#e91e63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="15" x2="12" y2="3" stroke="#e91e63" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+        <span class="link-label">File iPA ESign</span>
+        <span class="link-open-btn dl"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <span class="app-section-label" id="signed">Signed App</span>
+  <div class="apps-wrap"><div class="app-section"></div></div>
+
+  <span class="app-section-label" id="bypass">Bypass Revoke</span>
+  <div class="seg-wrap" role="tablist">
+    <div class="seg-track">
+      <div class="seg-thumb" id="seg-thumb"></div>
+      <button class="seg-btn active" id="tab-esign" role="tab" aria-selected="true" aria-controls="panel-esign" onclick="switchTab('esign')">ESign</button>
+      <button class="seg-btn" id="tab-ksign" role="tab" aria-selected="false" aria-controls="panel-ksign" onclick="switchTab('ksign')">KSign</button>
+    </div>
+  </div>
+  <div id="panel-esign" role="tabpanel" class="tab-panel">
+    <div class="apps-wrap"><div class="esign-section"></div></div>
+  </div>
+  <div id="panel-ksign" role="tabpanel" class="tab-panel" hidden="">
+    <div class="apps-wrap"><div class="ksign-section"></div></div>
+  </div>
+
+  <span class="section-label" id="skills">Ky nang</span>
+  <section class="skills-section">
+    <div class="skills-card">
+      <h2>Ky nang Lap trinh</h2>
+      <div class="skill-row">
+        <span class="skill-name">HTML/CSS</span>
+        <div class="skill-track"><div class="skill-fill" data-percent="76%" style="background:#e34c26"></div></div>
+        <span class="skill-pct">76%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Lua</span>
+        <div class="skill-track"><div class="skill-fill" data-percent="68%" style="background:#1f5af9"></div></div>
+        <span class="skill-pct">68%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">PHP</span>
+        <div class="skill-track"><div class="skill-fill" data-percent="12%" style="background:#89a5f3"></div></div>
+        <span class="skill-pct">12%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">MySQL</span>
+        <div class="skill-track"><div class="skill-fill" data-percent="9%" style="background:#f29111"></div></div>
+        <span class="skill-pct">9%</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <a href="//www.dmca.com/Protection/Status.aspx?ID=8d6c1d20-15d9-4846-ab00-806948e47695" title="DMCA.com Protection Status">
+    <img src="https://images.dmca.com/Badges/_dmca_premi_badge_5.png?ID=8d6c1d20-15d9-4846-ab00-806948e47695" alt="DMCA" loading="lazy" style="height:26px;margin-bottom:.6rem;"/>
+  </a>
+  <br/>
+  <span>© 2026 Vu Van Khoi · khoindvn.io.vn</span>
+</footer>
+
+<script>
+/* ================================================
+   TAB SWITCHER
+   ================================================ */
+function switchTab(tab){
+  var thumb=document.getElementById('seg-thumb'),btnE=document.getElementById('tab-esign'),btnK=document.getElementById('tab-ksign'),panE=document.getElementById('panel-esign'),panK=document.getElementById('panel-ksign');
+  if(tab==='esign'){
+    thumb.style.transform='translateX(0)';btnE.classList.add('active');btnE.setAttribute('aria-selected','true');btnK.classList.remove('active');btnK.setAttribute('aria-selected','false');
+    panE.hidden=false;panE.classList.remove('tab-panel');void panE.offsetWidth;panE.classList.add('tab-panel');panK.hidden=true;
+  }else{
+    thumb.style.transform='translateX('+btnE.offsetWidth+'px)';btnK.classList.add('active');btnK.setAttribute('aria-selected','true');btnE.classList.remove('active');btnE.setAttribute('aria-selected','false');
+    panK.hidden=false;panK.classList.remove('tab-panel');void panK.offsetWidth;panK.classList.add('tab-panel');panE.hidden=true;
+  }
+}
+
+/* ================================================
+   MAIN.JS - Khoindvn 2026
+   ================================================ */
+const TYPING_CONFIG = {
+  texts: ['Seller.', 'Designer.', 'Developer.'],
+  typingSpeed: 110, deletingSpeed: 55, pauseAfterType: 2200,
+};
+
+let tIdx = 0, cIdx = 0, del = false;
+function typeText() {
+  const el = document.getElementById('typed-text');
+  if (!el) return;
+  const word = TYPING_CONFIG.texts[tIdx];
+  if (!del) {
+    el.textContent = word.slice(0, ++cIdx);
+    if (cIdx === word.length) { del = true; return setTimeout(typeText, TYPING_CONFIG.pauseAfterType); }
+    setTimeout(typeText, TYPING_CONFIG.typingSpeed);
+  } else {
+    el.textContent = word.slice(0, --cIdx);
+    if (cIdx === 0) { del = false; tIdx = (tIdx + 1) % TYPING_CONFIG.texts.length; }
+    setTimeout(typeText, TYPING_CONFIG.deletingSpeed);
+  }
+}
+
+function animateSkills() {
+  document.querySelectorAll('.skill-fill').forEach(function(b) {
+    var width = b.getAttribute('data-percent') || '0%';
+    b.style.width = width;
+  });
+}
+
+function initNav() {
+  const btn = document.getElementById('menu-button');
+  const links = document.querySelector('.nav-links');
+  if (!btn || !links) return;
+  btn.addEventListener('click', () => {
+    const open = links.classList.toggle('show');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  links.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => links.classList.remove('show'))
+  );
+}
+
+const SOCIAL_ICONS = {
+  facebook: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#1877f2"/><path d="M16 8h-2a1 1 0 0 0-1 1v2h3l-.5 3H13v7h-3v-7H8v-3h2V9a4 4 0 0 1 4-4h2v3z" fill="white"/></svg>`,
+  messenger:`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#0084ff"/><path d="M12 2C6.5 2 2 6.2 2 11.4c0 2.9 1.4 5.4 3.6 7.1v3.5l3.3-1.8c.9.2 1.8.3 2.1.3 5.5 0 10-4.2 10-9.4S17.5 2 12 2zm1 12.6l-2.5-2.7-4.9 2.7 5.4-5.7 2.6 2.7 4.8-2.7-5.4 5.7z" fill="white"/></svg>`,
+  telegram: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#2196f3"/><path d="M20.7 3.3L2.3 10.2c-.9.4-.9 1 0 1.2l4.6 1.4 1.7 5.3c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.7l3-14.2c.3-1.1-.4-1.6-1.1-1.5zm-3.4 4.4L9 14.5l-.3 3.3-1.7-5.3 11.3-4.8z" fill="white"/></svg>`,
+  zalo:     `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#0068ff"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-family="-apple-system,Arial,sans-serif" font-weight="900" font-size="10" fill="white">Zalo</text></svg>`,
+};
+
+function initSocials() {
+  const wrap = document.querySelector('.social-buttons');
+  if (!wrap) return;
+  const SOCIALS = [
+    { name: 'facebook',  url: 'https://www.facebook.com/share/1XH7kThUjd/?mibextid=wwXIfr' },
+    { name: 'messenger', url: 'https://m.me/khoindvn.esigncert' },
+    { name: 'telegram',  url: 'https://t.me/m/7P3IVuTSYTQ1' },
+    { name: 'zalo',      url: 'https://zalo.me/0386495528' },
+  ];
+  SOCIALS.forEach(({ name, url }) => {
+    const btn = document.createElement('button');
+    btn.className = 'social-btn';
+    btn.setAttribute('aria-label', name);
+    btn.innerHTML = SOCIAL_ICONS[name] || '';
+    btn.addEventListener('click', () => window.open(url, '_blank'));
+    wrap.appendChild(btn);
+  });
+}
+
+function initTheme() {
+  var btn = document.getElementById('colorMode');
+  if (!btn) return;
+  var saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+  btn.addEventListener('click', function() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+}
+
+function onScroll() {
+  const sec = document.querySelector('.skills-card');
+  if (!sec) return;
+  if (sec.getBoundingClientRect().top < window.innerHeight) {
+    animateSkills();
+    window.removeEventListener('scroll', onScroll, { passive: true });
+  }
+}
+
+/* ================================================
+   APP DATA CONFIGURATION
+   ================================================ */
+const apps = [
+  {
+    name: 'AovCheat ✅',
+    url: 'http://sub.khoindvn.io.vn/aovcheat/',
+    img: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c4/ca/f6/c4caf66c-cd27-efda-fdd5-7f7f87535663/AppIcon-1x_U007emarketing-0-11-0-85-220-0.png/512x512bb.jpg',
+    descriptions: 'Hack Map Đánh Kín Update 26/03/2026 Fix Văng'
+  },{
+    name: 'AovMod ✅',
+    url: 'http://sub.khoindvn.io.vn/aovmod/',
+    img: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c4/ca/f6/c4caf66c-cd27-efda-fdd5-7f7f87535663/AppIcon-1x_U007emarketing-0-11-0-85-220-0.png/512x512bb.jpg',
+    descriptions: 'Aov Mod Skin Update 26/03/2026'
+  },{
+    name: 'Delta VN ✅',
+    url: 'https://sub.khoindvn.io.vn/deltavn/',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM4K15INcKnSAx3OEPed4Z8rc9bLg1FH2HEoYr6w8FFg&s',
+    descriptions: 'Update Fix Văng 26/03/2026 fix Menu Ko Bypass Đc Key'
+  },{
+    name: 'Crossfire: Legends ✅',
+    url: 'http://sub.khoindvn.io.vn/cfvn/',
+    img: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d5/67/82/d5678282-ac1b-05d7-c61f-c10955a61479/AppIcon-1x_U007emarketing-0-10-0-85-220-0.png/512x512bb.jpg',
+    descriptions: 'Hack Aim antiband – Update fix văng 05/04/2026'
+  },{
+    name: 'Get Key Crossfire: Legends ✅',
+    url: 'https://authtool.app/get-key?code=7842d3c4-92fa-48a5-8130-8d150ae3a32e',
+    img: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d5/67/82/d5678282-ac1b-05d7-c61f-c10955a61479/AppIcon-1x_U007emarketing-0-10-0-85-220-0.png/512x512bb.jpg',
+    descriptions: 'Lấy key Crossfire: Legends'
+  },{
+    name: 'Free Fire ✅',
+    url: 'http://sub.khoindvn.io.vn/ff/',
+    img: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4b/8d/ba/4b8dba37-a240-f450-9f99-c3a611c96536/AppIcon-1767797054-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg',
+    descriptions: 'Hack FF antiban log song song này cho ai biết chơi log song thôi – Update 27/03/2026'
+  },{
+    name: 'Get Key Free fire ✅',
+    url: 'https://authtool.app/get-key?code=cc255180-8524-414b-98bd-b42c0e5e9817',
+    img: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4b/8d/ba/4b8dba37-a240-f450-9f99-c3a611c96536/AppIcon-1767797054-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg',
+    descriptions: 'Lấy key vào game free fire'
+  },{
+    name: 'TrollStore X ✅',
+    url: 'https://sub.khoindvn.io.vn/trollst',
+    img: 'https://raw.githubusercontent.com/alfiecg24/TrollInstallerX/main/Resources/Icon.png',
+    descriptions: 'Hỗ trợ iOS 14.0 – 16.6.1'
+  }
+];
+
+const esignApps = [
+  {
+    name: 'KSign ✅',
+    url:'https://api.khoindvn.io.vn/JnAsbd',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'XL AXIATA, PT TBK'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/KerPQi',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'National Oilwell Varco, Inc.'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/REVuA5',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'VIETNAM AIRLINES JSC'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/NyEYpb',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'PowerChina International Group Limited'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/h5ZX40',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'Luoyang Postal Administration'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/Esx6ba',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'Commission on Elections'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/N7lNfm',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'CHIBA INSTITUTE OF TECHNOLOGY'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/9LLTsM',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  },{
+    name: 'KSign',
+    url: 'https://api.khoindvn.io.vn/2rSU4B',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYlk6oHRX_isIEsA0183yypCcVuMNaseuGzSymQIUY1g&s',
+    descriptions: 'Qingdao Rural Commercial Bank Co., Ltd'
+  },{
+    name: 'ESign ✅',
+    url: 'https://api.khoindvn.eu.org/oxe83o',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'XL AXIATA, PT TBK'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/XHJQcD',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'BOC International (China) Limited'
+  },{
+    name: 'ESign BOC V1',
+    url: 'https://api.khoindvn.io.vn/XPhn8L',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'BOC International (China) Limited'
+  },{
+    name: 'ESign BOC V2',
+    url: 'https://api.khoindvn.io.vn/j6HS4k',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'BOC International (China) Limited'
+  },{
+    name: 'ESign BOC V3',
+    url: 'https://api.khoindvn.io.vn/mOKSJt',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'BOC International (China) Limited'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/l5zzBs',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'National Oilwell Varco, Inc.'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/l0drnJ',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'VIETNAM AIRLINES JSC'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/HdZnCj',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'PowerChina International Group Limited'
+  },{
+    name: 'ESign PowerChina V1',
+    url: 'https://api.khoindvn.io.vn/2J6MJz',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'PowerChina International Group Limited'
+  },{
+    name: 'ESign PowerChina V2',
+    url: 'https://api.khoindvn.io.vn/aVc2Gk',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'PowerChina International Group Limited'
+  },{
+    name: 'ESign PowerChina V3',
+    url: 'https://api.khoindvn.io.vn/UuAl5i',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'PowerChina International Group Limited'
+  },{
+    name: 'ESign PowerChina V4',
+    url: 'https://api.khoindvn.io.vn/mKq38w',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'PowerChina International Group Limited'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/U7fGrl',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'Qingdao Rural Commercial Bank Co., Ltd'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/PnrQnK',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'Commission on Elections'
+  },{
+    name: 'ESign Com V1',
+    url: 'https://api.khoindvn.io.vn/99yRgN',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'Commission on Elections'
+  },{
+    name: 'ESign Com V2',
+    url: 'https://api.khoindvn.io.vn/FQCCpn',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'Commission on Elections'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/j7ugho',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'Luoyang Postal Administration'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/bYA0i6',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'China National Heavy Duty Truck Group Co., Ltd.'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/cTiFFB',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'China Telecommunications Corporation'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/TPaVIt',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'CHIBA INSTITUTE OF TECHNOLOGY'
+  },{
+    name: 'ESign ChiBa V1',
+    url: 'https://api.khoindvn.io.vn/xSBzLu',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'CHIBA INSTITUTE OF TECHNOLOGY'
+  },{
+    name: 'ESign ChiBa V2',
+    url: 'https://api.khoindvn.io.vn/snaMHN',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'CHIBA INSTITUTE OF TECHNOLOGY'
+  },{
+    name: 'ESign ChiBa V3',
+    url: 'https://api.khoindvn.io.vn/2JriFT',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'CHIBA INSTITUTE OF TECHNOLOGY'
+  },{
+    name: 'ESign ChiBa V4',
+    url: 'https://api.khoindvn.io.vn/YvtlUy',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'CHIBA INSTITUTE OF TECHNOLOGY'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/4h9whC',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE'
+  },{
+    name: 'ESign VN V1',
+    url: 'https://api.khoindvn.io.vn/pciQGt',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE'
+  },{
+    name: 'ESign VN V2',
+    url: 'https://api.khoindvn.io.vn/8HLbeu',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE'
+  },{
+    name: 'ESign',
+    url: 'https://api.khoindvn.io.vn/aKk6vi',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  },{
+    name: 'ESign GlOBAL V1',
+    url: 'https://api.khoindvn.io.vn/vGoIMF',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  },{
+    name: 'ESign GlOBAL V2',
+    url: 'https://api.khoindvn.io.vn/qTfnZT',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  },{
+    name: 'ESign GlOBAL V3',
+    url: 'https://api.khoindvn.io.vn/PVPh70',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  },{
+    name: 'ESign GlOBAL V4',
+    url: 'https://api.khoindvn.io.vn/WJzjeS',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  },{
+    name: 'ESign GlOBAL V6',
+    url: 'https://api.khoindvn.io.vn/ZMzWGe',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  },{
+    name: 'ESign GlOBAL V7',
+    url: 'https://api.khoindvn.io.vn/hRFlJo',
+    img: 'https://khoindvn.io.vn/img/pf/profile-pic.png',
+    descriptions: 'GLOBAL TAKEOFF, INC'
+  }
+];
+
+/* ================================================
+   RENDER FUNCTIONS
+   ================================================ */
+function renderItem(item) {
+  return '<a href="' + item.url + '" class="app-row" target="_blank" rel="noopener">' +
+    '<img src="' + item.img + '" class="app-icon" alt="' + item.name + '" loading="lazy">' +
+    '<div class="app-text">' +
+      '<div class="app-title">' + item.name + '</div>' +
+      '<div class="app-sub">'   + item.descriptions + '</div>' +
+    '</div>' +
+    '<div class="app-action">INSTALL</div>' +
+  '</a>';
+}
+
+function renderList(selector, list) {
+  var el = document.querySelector(selector);
+  if (!el) return;
+  el.innerHTML = list.map(renderItem).join('');
+}
+
+function initApps() {
+  var ksignList = esignApps.filter(function(i) {
+    return i.name.toUpperCase().indexOf('KSIGN') !== -1;
+  });
+  var esignList = esignApps.filter(function(i) {
+    var n = i.name.toUpperCase();
+    return n.indexOf('ESIGN') !== -1 && n.indexOf('KSIGN') === -1;
+  });
+  renderList('.app-section',   apps);
+  renderList('.esign-section', esignList);
+  renderList('.ksign-section', ksignList);
+  setTimeout(animateSkills, 300);
+}
+
+/* ================================================
+   INIT
+   ================================================ */
+document.addEventListener('DOMContentLoaded', function() {
+  initNav();
+  initSocials();
+  initTheme();
+  typeText();
+  initApps();
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Skill bar intersection observer
+  var fills = document.querySelectorAll('.skill-fill');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.style.width = e.target.dataset.percent; obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.3 });
+    fills.forEach(function(f) { obs.observe(f); });
+  } else {
+    fills.forEach(function(f) { f.style.width = f.dataset.percent; });
+  }
+});
+</script>
+</body>
+</html>
